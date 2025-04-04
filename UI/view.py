@@ -9,37 +9,47 @@ class View(ft.UserControl):
         self._page.title = "Template application using MVC and DAO"
         self._page.horizontal_alignment = 'CENTER'
         self._page.theme_mode = ft.ThemeMode.DARK
+
         # controller (it is not initialized. Must be initialized in the main, after the controller is created)
         self._controller = None
+
         # graphical elements
         self._title = None
-        self.txt_name = None
-        self.btn_hello = None
-        self.txt_result = None
-        self.txt_container = None
+        self.dd1 = None
+        self.dd2 = None
+        self.dd3 = None
+        self.btn1 = None
+        self.btn2 = None
+        self.label1 = None
+
 
     def load_interface(self):
-        # title
-        self._title = ft.Text("Hello World", color="blue", size=24)
+
+        # Titolo
+        self._title = ft.Text("Analizza vendite", color="blue", size=24)
         self._page.controls.append(self._title)
 
-        #ROW with some controls
-        # text field for the name
-        self.txt_name = ft.TextField(
-            label="name",
-            width=200,
-            hint_text="Insert a your name"
-        )
+        # Riga 1
+        self.dd1 = ft.Dropdown(label = "Anno")
+        self._controller.filldd1()
 
-        # button for the "hello" reply
-        self.btn_hello = ft.ElevatedButton(text="Hello", on_click=self._controller.handle_hello)
-        row1 = ft.Row([self.txt_name, self.btn_hello],
-                      alignment=ft.MainAxisAlignment.CENTER)
-        self._page.controls.append(row1)
+        self.dd2 = ft.Dropdown(label = "Brand")
+        self._controller.filldd2()
 
-        # List View where the reply is printed
-        self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
-        self._page.controls.append(self.txt_result)
+        self.dd3 = ft.Dropdown(label = "Retailer")
+        self._controller.filldd3()
+
+
+        row1 = ft.Row([self.dd1, self.dd2, self.dd3], alignment=ft.MainAxisAlignment.CENTER)
+
+        self.btn1 = ft.ElevatedButton(text = "Top vendite")
+        self.btn2 = ft.ElevatedButton(text = "Analizza vendite")
+        row2 = ft.Row([self.btn1, self.btn2], alignment=ft.MainAxisAlignment.CENTER)
+
+        # List View
+        self.lvTxtOut = ft.ListView(expand=True)
+
+        self._page.add(row1, row2, self.lvTxtOut)
         self._page.update()
 
     @property

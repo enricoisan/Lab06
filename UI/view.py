@@ -6,7 +6,7 @@ class View(ft.UserControl):
         super().__init__()
         # page stuff
         self._page = page
-        self._page.title = "Template application using MVC and DAO"
+        self._page.title = "App analisi vendite"
         self._page.horizontal_alignment = 'CENTER'
         self._page.theme_mode = ft.ThemeMode.DARK
 
@@ -20,7 +20,7 @@ class View(ft.UserControl):
         self.dd3 = None
         self.btn1 = None
         self.btn2 = None
-        self.label1 = None
+        self.lvTxtOut = None
 
 
     def load_interface(self):
@@ -32,23 +32,24 @@ class View(ft.UserControl):
         # Riga 1
         self.dd1 = ft.Dropdown(label = "Anno")
         self._controller.filldd1()
-
         self.dd2 = ft.Dropdown(label = "Brand")
         self._controller.filldd2()
-
         self.dd3 = ft.Dropdown(label = "Retailer")
         self._controller.filldd3()
-
-
         row1 = ft.Row([self.dd1, self.dd2, self.dd3], alignment=ft.MainAxisAlignment.CENTER)
 
-        self.btn1 = ft.ElevatedButton(text = "Top vendite")
-        self.btn2 = ft.ElevatedButton(text = "Analizza vendite")
+        # Riga 2
+        self.btn1 = ft.ElevatedButton(text = "Top vendite",
+                                      on_click = self._controller.handleb1)
+        self.btn2 = ft.ElevatedButton(text = "Analizza vendite",
+                                      on_click = self._controller.handleb2)
+
         row2 = ft.Row([self.btn1, self.btn2], alignment=ft.MainAxisAlignment.CENTER)
 
         # List View
         self.lvTxtOut = ft.ListView(expand=True)
 
+        # Aggiunta elementi e aggiornamento pagina
         self._page.add(row1, row2, self.lvTxtOut)
         self._page.update()
 

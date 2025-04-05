@@ -8,7 +8,9 @@ class Retailer:
     country: str
 
     def __eq__(self, other):
-        return self.retailer_code == other.retailer_code
+        if isinstance(other, Retailer):
+            return self.retailer_code == other.retailer_code
+        return False  # o `return NotImplemented`
 
     def __hash__(self):
         return hash(self.retailer_code)
